@@ -16,13 +16,13 @@ go install github.com/cpmachado/pytt@latest
 ## Usage
 
 ```
-pytt is a simple tool to compute pythagorean triplets, in csv form.
-
 Usage of pytt:
+  -k int
+    	number of triplets (default 100)
   -n int
-    	upper bound of each element (default 100)
+    	upper bound (default 9223372036854775807)
   -t	print header
-  -v	print version
+  -v	display version
 ```
 
 ## License
