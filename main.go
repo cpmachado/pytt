@@ -3,30 +3,23 @@ package main
 import (
 	"flag"
 	"fmt"
+	"math"
 	"os"
 	"runtime/debug"
+
+	"github.com/cpmachado/pytt/generators"
 )
 
-const usageContent = `%s is a simple tool to compute pythagorean triplets, in csv form.
-
-Usage of %s:
-  -n int
-    	upper bound of each element (default 100)
-  -t	print header
-  -v	print version
-`
-
 func main() {
-	n := 100
+	n := math.MaxInt
+	k := 100
 	h := false
 	v := false
 
-	flag.IntVar(&n, "n", n, "upper bound of each element")
+	flag.IntVar(&n, "n", n, "upper bound")
+	flag.IntVar(&k, "k", k, "number of triplets")
 	flag.BoolVar(&h, "t", h, "print header")
 	flag.BoolVar(&v, "v", v, "display version")
-	flag.Usage = func() {
-		fmt.Printf(usageContent, flag.CommandLine.Name(), flag.CommandLine.Name())
-	}
 
 	flag.Parse()
 
@@ -43,13 +36,8 @@ func main() {
 		fmt.Println("a,b,c")
 	}
 
-	for a := range n {
-		for b := range a {
-			for c := range b {
-				if a*a == b*b+c*c {
-					fmt.Printf("%d,%d,%d\n", a, b, c)
-				}
-			}
-		}
+	for _, v := range generators.Base(n, k) {
+		a, b, c := v.A, v.B, v.C
+		fmt.Printf("%d,%d,%d\n", a, b, c)
 	}
 }
