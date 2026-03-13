@@ -1,5 +1,3 @@
 package generators
 
-type Pytt struct {
-	A, B, C int
-}
+type Pytt [3]int

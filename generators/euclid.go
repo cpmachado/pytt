@@ -18,12 +18,14 @@ func Euclid(limit int, k int) iter.Seq2[int, Pytt] {
 					return
 				}
 				if gcd(m, n) == 1 && (m-n)%2 == 1 {
-
 					a := m*m - n*n
 					b := 2 * m * n
 					c := m*m + n*n
+					if c > limit || a > limit || b > limit {
+						return
+					}
 
-					if !yield(i, Pytt{A: a, B: b, C: c}) {
+					if !yield(i, Pytt{a, b, c}) {
 						return
 					}
 					i++

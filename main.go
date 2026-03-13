@@ -39,7 +39,7 @@ func main() {
 	gen := generators.Euclid
 
 	for _, v := range gen(n, k) {
-		a, b, c := v.A, v.B, v.C
+		a, b, c := v[0], v[1], v[2]
 		fmt.Printf("%d,%d,%d\n", a, b, c)
 	}
 }
