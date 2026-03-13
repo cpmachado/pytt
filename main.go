@@ -36,7 +36,9 @@ func main() {
 		fmt.Println("a,b,c")
 	}
 
-	for _, v := range generators.Base(n, k) {
+	gen := generators.Euclid
+
+	for _, v := range gen(n, k) {
 		a, b, c := v.A, v.B, v.C
 		fmt.Printf("%d,%d,%d\n", a, b, c)
 	}
