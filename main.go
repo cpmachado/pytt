@@ -21,11 +21,7 @@ func main() {
 	flag.Parse()
 
 	if v {
-		vsn := "dev"
-		if info, ok := debug.ReadBuildInfo(); ok {
-			vsn = info.Main.Version
-		}
-		fmt.Printf("pytt-%s\n", vsn)
+		version()
 		os.Exit(0)
 	}
 
@@ -39,4 +35,12 @@ func main() {
 		a, b, c := v.A, v.B, v.C
 		fmt.Printf("%s,%s,%s\n", a.String(), b.String(), c.String())
 	}
+}
+
+func version() {
+	vsn := "dev"
+	if info, ok := debug.ReadBuildInfo(); ok {
+		vsn = info.Main.Version
+	}
+	fmt.Printf("pytt-%s\n", vsn)
 }
