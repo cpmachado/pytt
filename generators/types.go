@@ -1,5 +1,5 @@
 package generators
 
 type Pytt struct {
-	A, B, Hypo int
+	A, B, C int
 }

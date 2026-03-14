@@ -13,11 +13,11 @@ func Euclid(k int) iter.Seq2[int, Pytt] {
 	return func(yield func(int, Pytt) bool) {
 		i := 0
 		for m := 2; ; m++ {
-			for n := range m {
+			for n := 1; n < m; n++ {
 				if i >= k {
 					return
 				}
-				if gcd(m, n) == 1 && (m-n)%2 == 1 {
+				if (m-n)%2 == 1 && gcd(m, n) == 1 {
 					a := m*m - n*n
 					b := 2 * m * n
 					c := m*m + n*n
