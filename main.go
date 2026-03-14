@@ -37,6 +37,6 @@ func main() {
 
 	for _, v := range gen(n) {
 		a, b, c := v.A, v.B, v.C
-		fmt.Printf("%d,%d,%d\n", a, b, c)
+		fmt.Printf("%s,%s,%s\n", a.String(), b.String(), c.String())
 	}
 }

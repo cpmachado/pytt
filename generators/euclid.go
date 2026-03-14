@@ -1,32 +1,25 @@
 package generators
 
-import "iter"
+import (
+	"iter"
+	"math/big"
+)
 
-func gcd(a, b int) int {
-	for b != 0 {
-		a, b = b, a%b
-	}
-	return a
-}
+var one, two *big.Int = big.NewInt(1), big.NewInt(2)
 
 func Euclid(k int) iter.Seq2[int, Pytt] {
 	return func(yield func(int, Pytt) bool) {
 		i := 0
-		for m := 2; ; m++ {
-			for n := 1; n < m; n++ {
+		one := big.NewInt(1)
+		for m := big.NewInt(2); ; m.Add(m, one) {
+			for n := big.NewInt(1); n.Cmp(m) < 0; n.Add(n, one) {
 				if i >= k {
 					return
 				}
-				if (m-n)%2 == 1 && gcd(m, n) == 1 {
-					a := m*m - n*n
-					b := 2 * m * n
-					c := m*m + n*n
+				if checkValidMN(m, n) {
+					p := generateTriple(m, n)
 
-					if a > b {
-						a, b = b, a
-					}
-
-					if !yield(i, Pytt{a, b, c}) {
+					if !yield(i, p) {
 						return
 					}
 					i++
@@ -34,4 +27,22 @@ func Euclid(k int) iter.Seq2[int, Pytt] {
 			}
 		}
 	}
+}
+
+func generateTriple(m, n *big.Int) Pytt {
+	m2 := new(big.Int).Mul(m, m)
+	n2 := new(big.Int).Mul(n, n)
+	a := new(big.Int).Sub(m2, n2)
+	b := new(big.Int).Mul(two, new(big.Int).Mul(m, n))
+	c := new(big.Int).Add(m2, n2)
+
+	if a.Cmp(b) > 0 {
+		a, b = b, a
+	}
+
+	return Pytt{A: *a, B: *b, C: *c}
+}
+
+func checkValidMN(m, n *big.Int) bool {
+	return new(big.Int).Rem(new(big.Int).Sub(m, n), two).Cmp(one) == 0 && new(big.Int).GCD(nil, nil, m, n).Cmp(one) == 0
 }

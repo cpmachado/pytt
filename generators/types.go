@@ -1,5 +1,7 @@
 package generators
 
+import "math/big"
+
 type Pytt struct {
-	A, B, C int
+	A, B, C big.Int
 }
