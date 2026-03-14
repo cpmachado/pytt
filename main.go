@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"math"
 	"os"
 	"runtime/debug"
 
@@ -11,13 +10,11 @@ import (
 )
 
 func main() {
-	n := math.MaxInt
-	k := 100
+	n := 100
 	h := false
 	v := false
 
-	flag.IntVar(&n, "n", n, "upper bound")
-	flag.IntVar(&k, "k", k, "number of triplets")
+	flag.IntVar(&n, "n", n, "number of triplets")
 	flag.BoolVar(&h, "t", h, "print header")
 	flag.BoolVar(&v, "v", v, "display version")
 
@@ -33,13 +30,13 @@ func main() {
 	}
 
 	if h {
-		fmt.Println("a,b,c")
+		fmt.Println("a,b,hypotenuse")
 	}
 
 	gen := generators.Euclid
 
-	for _, v := range gen(n, k) {
-		a, b, c := v[0], v[1], v[2]
+	for _, v := range gen(n) {
+		a, b, c := v.A, v.B, v.Hypo
 		fmt.Printf("%d,%d,%d\n", a, b, c)
 	}
 }

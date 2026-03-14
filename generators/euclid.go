@@ -9,10 +9,10 @@ func gcd(a, b int) int {
 	return a
 }
 
-func Euclid(limit int, k int) iter.Seq2[int, Pytt] {
+func Euclid(k int) iter.Seq2[int, Pytt] {
 	return func(yield func(int, Pytt) bool) {
 		i := 0
-		for m := 2; m <= limit; m++ {
+		for m := 2; ; m++ {
 			for n := range m {
 				if i >= k {
 					return
@@ -21,8 +21,9 @@ func Euclid(limit int, k int) iter.Seq2[int, Pytt] {
 					a := m*m - n*n
 					b := 2 * m * n
 					c := m*m + n*n
-					if c > limit || a > limit || b > limit {
-						return
+
+					if a > b {
+						a, b = b, a
 					}
 
 					if !yield(i, Pytt{a, b, c}) {

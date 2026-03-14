@@ -1,3 +1,5 @@
 package generators
 
-type Pytt [3]int
+type Pytt struct {
+	A, B, Hypo int
+}
